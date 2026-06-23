@@ -135,9 +135,20 @@
 
   function make_html(data) {
     // to selection header
+    const aliasMap = {
+      'eth0': 'ASUS LAN',
+      'eth1': '보조 LAN',
+      'docker0': 'Docker-Default',
+      'docker-c840e95b': 'PlexTools',
+      'docker-2ee4401c': 'Trading',
+      'docker-528c2716': 'OpenClaw',
+      'docker-a467a73d': 'Work',
+      'docker-b5875ffa': 'Personal',
+    };
     str = ''
     data.iflist.forEach(function(ifname) {
-      str += `<option value="${ifname}">${ifname}</option>`;
+      if (!(ifname in aliasMap)) return;
+      str += `<option value="${ifname}">${aliasMap[ifname]}</option>`;
     });
     document.getElementById("interface_id").innerHTML = str;
     document.getElementById('interface_id').value = data.interface.name;
